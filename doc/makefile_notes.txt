@@ -816,18 +816,33 @@ file and the source file in each case where the rule applies
 
 11.3 Dangers When Using Archives
 
-# timestamp is kept with the U option, or reset to 1970/1/1.
-ARFLAGS := rvU
+ARFLAGS := rv
 (%) : % ;
-%.a : ; $(AR) $(ARFLAGS) $@ $?
+%.a :
+  rm -f $@
+  $(AR) $(ARFLAGS) $@ $^
 libfoo.a: libfoo.a(x.o y.o …)
 
 # keep .o files even for the first time with archive(member) syntax
 .SECONDARY: # $(patsubst %.c,%.o,$(wildcard *.c))
 
+# 1. do not use U in ARFLAGS ;
+# 2. add rm -f $@ befoe $(AR) ;
+# 3. use $^ instead of $? ;
+#
+# without U, the archive timestamp is zero and considered outdated every time,
+# so ar gets the chance to rebuild every time, even when source files or object
+# files are added, removed or changed.
+# so no make clean or the touch command is required manually.
+#
+# without U, $? is same as $^, because archive timestamp is zero and considered
+# outdated. all prerequisites are new. but use $^ always.
+#
+
 # $ ar -tv libfoo.a
 # rw-rw-r-- 1000/1000 78776 Jan 1 23:49 2025 foo.o
 # $
+
 
 
 ---
