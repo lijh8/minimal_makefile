@@ -180,6 +180,28 @@ A makefile may contain other text besides rules,
 ---
 
 
+2.3 How make Processes a Makefile
+
+Before recompiling an object file, make considers updating its prerequisites,
+the source file and header files. This makefile does not specify anything to be
+done for them—the ‘.c’ and ‘.h’ files are not the targets of any rules—so make
+does nothing for these files. But make would update automatically generated C
+programs, such as those made by Bison or Yacc, by their own rules at this time.
+
+# a target can be a file.
+# a prerequisite can be a file,
+# timestamps will be checked to see if target is outdated.
+  a.out: a.cpp a.h
+
+# a prerequisite can also be a non-file target of another rule, there is no file
+# timestamp to check, so that rule will be performed unconditionally.
+  a: b
+  b: ; echo 'beep!'
+
+
+---
+
+
 2.4 Variables Make Makefiles Simpler
 
 Variables allow a text string to be defined once and substituted in multiple
