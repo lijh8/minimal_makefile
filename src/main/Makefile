@@ -5,7 +5,7 @@ CPPFLAGS = -MMD -MP # -I../foo -DNDEBUG
 LDFLAGS  = # -L../foo -shared -static
 LDLIBS   = # -lfoo
 
-ifeq ($(wildcard *.c),)
+ifneq ($(wildcard *.cpp),)
 CC       = $(CXX) # link with CXX for .cpp
 endif
 
