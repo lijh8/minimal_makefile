@@ -295,6 +295,23 @@ no need to write explicit rules for compiling the files)
 ---
 
 
+4.5 Phony Targets
+
+By declaring the sub-directories as .PHONY targets (you must do this as the
+sub-directory obviously always exists; otherwise it won’t be built) you can
+remove these problems:
+
+SUBDIRS = foo bar baz
+.PHONY: subdirs $(SUBDIRS)
+subdirs: $(SUBDIRS)
+
+$(SUBDIRS):
+  $(MAKE) -C $@
+
+
+---
+
+
 4.11 Multiple Rules for One Target
 
 One file can be the target of several rules. All the prerequisites mentioned in
