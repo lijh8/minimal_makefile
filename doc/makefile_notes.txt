@@ -624,6 +624,15 @@ of variable references and function calls;
 
 trailing space characters are not stripped from variable values,
 
+The value of a simply expanded variable is scanned once, expanding any
+references to other variables and functions, when the variable is defined.
+
+# var = value
+# Recursively Expanded Variable is evaluated when it is used, or late evaluated.
+#
+# var := value
+# Simply Expanded variable is evaluated when it is defined, or early evaluated.
+
 
 ---
 
