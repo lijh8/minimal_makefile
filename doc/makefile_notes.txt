@@ -1062,7 +1062,7 @@ https://github.com/google/sanitizers/issues/1039#issuecomment-453607726 ,
 
 # address (including leak), undefined behavior sanitizers,
 CFLAGS   += -fsanitize=address,leak,undefined  # CXXFLAGS for .cpp
-LDFLAGS  += -fsanitize=address,leak,undefined  # CXXFLAGS for .cpp
+LDFLAGS  += -fsanitize=address,leak,undefined
 
 # thread sanitizer,
 #CFLAGS  += -fsanitize=thread  # CXXFLAGS for .cpp
